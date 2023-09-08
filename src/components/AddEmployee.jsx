@@ -3,9 +3,10 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 
 function AddEmployee(props) {
+
+  const [img, setImg] = useState();
   const [name, setName] = useState();
   const [role, setRole] = useState();
-  const [img, setImg] = useState();
 
   const [show, setShow] = useState(false);
 
@@ -31,12 +32,11 @@ function AddEmployee(props) {
           <Modal.Title>Enter new Employee Details</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <form onSubmit={(e) => {
+          <form onSubmit={(e)=>{
             e.preventDefault();
-            console.log("inside add employee");
-            props.NewEmployee(name,role,img);
-          }
-        } 
+            handleClose();
+            props.addEmployee(name,role,img);
+          }}
           id="editmodal" className="w-full max-w-sm">
             <div className="md:flex md:items-center mb-6">
               <div className="md:w-1/3">
@@ -51,7 +51,7 @@ function AddEmployee(props) {
                   className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
                   id="name"
                   type="text"
-                  onChange={(e) => {
+                  onChange={(e)=>{
                     setName(e.target.value)
                   }}
                 />
@@ -70,7 +70,7 @@ function AddEmployee(props) {
                   className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
                   id="role"
                   type="text"
-                  onChange={(e) => {
+                  onChange={(e)=>{
                     setRole(e.target.value)
                   }}
                 />
@@ -89,7 +89,7 @@ function AddEmployee(props) {
                   className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
                   id="img"
                   type="text"
-                  onChange={(e) => {
+                  onChange={(e)=>{
                     setImg(e.target.value)
                   }}
                 />

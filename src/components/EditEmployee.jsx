@@ -1,23 +1,19 @@
-import { useState } from "react";
-import Button from "react-bootstrap/Button";
-import Modal from "react-bootstrap/Modal";
+import { useState } from 'react';
+
+import Modal from 'react-bootstrap/Modal';
 
 function EditEmployee(props) {
+  const [show, setShow] = useState(false);
   const [name, setName] = useState(props.name);
   const [role, setRole] = useState(props.role);
-
-  const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
   return (
     <>
-      <button
-        onClick={handleShow}
-        className="px-4 py-1 text-sm text-purple-600 font-semibold rounded-full border border-purple-200 hover:text-white hover:bg-purple-600 hover:border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-offset-2"
-      >
-        Edit
+      <button className='px-4 py-1 text-sm text-purple-600 font-semibold rounded-full border border-purple-200 hover:text-white hover:bg-purple-600 hover:border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-offset-2' onClick={handleShow}>
+        edit
       </button>
 
       <Modal
@@ -27,17 +23,14 @@ function EditEmployee(props) {
         keyboard={false}
       >
         <Modal.Header closeButton>
-          <Modal.Title>Update Employee Details</Modal.Title>
+          <Modal.Title>update employee details</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <form onSubmit={(e) => {
+        <form onSubmit={(e)=> {
             e.preventDefault();
             handleClose();
-            console.log("inside edit employee");
-            console.log(props.id,name,role);
-            props.UpdateEmployee(props.id,name,role);
-          }
-        } 
+            props.updateEmployee(props.id,name,role);
+        }}
           id="editmodal" className="w-full max-w-sm">
             <div className="md:flex md:items-center mb-6">
               <div className="md:w-1/3">
@@ -83,20 +76,10 @@ function EditEmployee(props) {
           </form>
         </Modal.Body>
         <Modal.Footer>
-          <button
-            className="shadow bg-slate-400 hover:bg-slate-700 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
-            type="button"
-            onClick={handleClose}
-          >
-            close
+          <button className='px-4 py-1 text-sm text-gray-600 font-semibold rounded-full border border-gray-200 hover:text-white hover:bg-gray-600 hover:border-transparent focus:outline-none focus:ring-2 focus:ring-gray-600 focus:ring-offset-2' onClick={handleClose}>
+            Close
           </button>
-          <button
-            form="editmodal"
-            className="shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
-            type="submit"
-          >
-            Update
-          </button>
+          <button form="editmodal" className='px-4 py-1 text-sm text-purple-600 font-semibold rounded-full border border-purple-200 hover:text-white hover:bg-purple-600 hover:border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-offset-2'>update</button>
         </Modal.Footer>
       </Modal>
     </>

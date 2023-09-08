@@ -3,7 +3,7 @@ import Employee from "../components/Employee"
 import { v4 as uuidv4 } from 'uuid';
 import AddEmployee from '../components/AddEmployee';
 import EditEmployee from '../components/EditEmployee';
-import Header from "../components/Header"
+// import Header from "../components/Header"
 
 function Employees() {
  const [employees, setEmployees] = useState(
@@ -20,42 +20,36 @@ function Employees() {
   ]
  );
 
- function UpdateEmployee(id, newName, newRole){
-  console.log('updateEmployee inside of app.js !')
-  const updatedEmployee = employees.map((employee)=>{
-    if(id == employee.id)
+function updateEmployee(id, newName, newRole) 
+{
+  const updatedEmployees = employees.map((e)=>{
+    if(e.id == id) 
     {
-      return {...employee, name : newName, role : newRole}
+      return {...e, name:newName, role:newRole}
     }
-    return employee;
-  }) 
-  setEmployees(updatedEmployee);
+    return e;
+  }
+  )
+  setEmployees(updatedEmployees);
 }
+function addEmployee(name, role , img)
+{
+  const newEmployee = {id:uuidv4(), name:name , role : role, img : img};
 
- function NewEmployee( newName, newRole, newImg){
-  console.log('newEmployee inside of app.js !');
-  const newEmployee = {
-    id : uuidv4(),
-    name: newName,
-    role : newRole,
-    img: newImg 
-  };
   setEmployees([...employees, newEmployee]);
 }
-
-
   return (
     <> 
     <div className=' mx-auto min-h-screen p-2 max-w-7xl'>
       <div className='flex flex-wrap justify-center'>
          {employees.map((e) => {
-          const editEmployee = <EditEmployee id={e.id} name={e.name} role={e.role} UpdateEmployee={UpdateEmployee} />
+          const editEmployee = <EditEmployee id={e.id} name={e.name} role={e.role} img={e.img} updateEmployee={updateEmployee} />
           return (
-           <Employee id={e.id} key={uuidv4()} name={e.name} role={e.role} img={e.img} UpdateEmployee={UpdateEmployee} editEmployee={editEmployee} />
+           <Employee id={e.id} key={uuidv4()} name={e.name} role={e.role} img={e.img} editEmployee={editEmployee}/>
            );
           })}
       </div>
-      <div><AddEmployee NewEmployee={NewEmployee}/></div>
+      <AddEmployee addEmployee={addEmployee} />
   </div>
     </>
   )
